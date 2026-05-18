@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prem Kumar Bale — Business Systems Analyst</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --card: #16161f;
+    --border: #ffffff0f;
+    --accent: #e8c87a;
+    --accent2: #7ab8e8;
+    --text: #e8e8f0;
+    --muted: #7a7a9a;
+    --tag-bg: #1e1e2e;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+
+  .nav-links { display: flex; gap: 2.2rem; }
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 2.5rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,200,122,0.07) 0%, transparent 70%);
+    top: -100px; right: -200px;
+    pointer-events: none;
+  }
+
+  .hero-glow2 {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(122,184,232,0.05) 0%, transparent 70%);
+    bottom: -100px; left: -100px;
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+
+  .hero h1 span { color: var(--accent); }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 540px;
+    margin-bottom: 3rem;
+    line-height: 1.8;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.8s;
+  }
+
+  .btn {
+    padding: 0.85rem 2rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.25s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #0a0a0f;
+    font-weight: 500;
+  }
+
+  .btn-primary:hover {
+    background: #f0d98a;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(232,200,122,0.25);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    margin-top: 5rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--border);
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 1s;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+  }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 7rem 2.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 3.5rem;
+    line-height: 1.15;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-text { color: var(--muted); font-size: 1rem; line-height: 1.9; }
+  .about-text p + p { margin-top: 1.2rem; }
+
+  .competencies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 2rem;
+  }
+
+  .tag {
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.35rem 0.85rem;
+    border-radius: 2px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+  }
+  .tag:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* EXPERIENCE */
+  .timeline { position: relative; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+  }
+
+  .timeline-item {
+    padding-left: 2.5rem;
+    padding-bottom: 3.5rem;
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+  }
+
+  .timeline-item.visible { opacity: 1; transform: translateY(0); }
+
+  .timeline-dot {
+    position: absolute;
+    left: -4px;
+    top: 0.4rem;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px rgba(232,200,122,0.5);
+  }
+
+  .job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .job-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .job-company {
+    font-size: 0.95rem;
+    color: var(--accent);
+    font-weight: 400;
+    margin-top: 0.2rem;
+  }
+
+  .job-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    padding-top: 0.3rem;
+  }
+
+  .job-bullets {
+    list-style: none;
+    margin-top: 1rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.8;
+  }
+
+  .job-bullets li {
+    padding-left: 1.2rem;
+    position: relative;
+    margin-bottom: 0.4rem;
+  }
+
+  .job-bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent2);
+    font-size: 0.8rem;
+  }
+
+  .env-bar {
+    margin-top: 1rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    border-left: 2px solid var(--accent2);
+    padding-left: 0.8rem;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .skill-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 1.8rem;
+    border-radius: 4px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .skill-card:hover::before { transform: scaleX(1); }
+  .skill-card:hover { border-color: rgba(255,255,255,0.15); transform: translateY(-3px); }
+
+  .skill-category {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+
+  .skill-list {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* EDUCATION */
+  .edu-grid { display: grid; gap: 1.5rem; }
+
+  .edu-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    border-radius: 4px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    transition: all 0.3s;
+  }
+
+  .edu-card:hover { border-color: rgba(232,200,122,0.2); transform: translateX(4px); }
+
+  .edu-degree {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  .edu-school { color: var(--accent); font-size: 0.9rem; margin-bottom: 0.6rem; }
+  .edu-courses { color: var(--muted); font-size: 0.85rem; }
+  .edu-gpa {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    background: rgba(232,200,122,0.1);
+    border: 1px solid rgba(232,200,122,0.2);
+    padding: 0.4rem 0.8rem;
+    border-radius: 2px;
+    text-align: center;
+    height: fit-content;
+    white-space: nowrap;
+  }
+
+  /* CERTS */
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+
+  .cert-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    border-radius: 4px;
+    transition: all 0.25s;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .cert-card:hover { border-color: rgba(122,184,232,0.3); }
+
+  .cert-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  .cert-name { font-size: 0.9rem; font-weight: 400; line-height: 1.4; }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; gap: 1.5rem; }
+
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    border-radius: 4px;
+    transition: all 0.3s;
+  }
+
+  .project-card:hover { border-color: rgba(232,200,122,0.2); }
+
+  .project-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+
+  .project-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.8rem;
+  }
+
+  .project-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.8; }
+
+  /* CONTACT */
+  .contact-section {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .contact-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 7rem 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem 1.5rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.9rem;
+    transition: all 0.25s;
+  }
+
+  .contact-link:hover {
+    border-color: var(--accent);
+    transform: translateX(6px);
+    color: var(--accent);
+  }
+
+  .contact-link-icon {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    min-width: 50px;
+  }
+
+  footer {
+    padding: 2rem 2.5rem;
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0 2.5rem;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* HAWK EYE PROJECT CARD */
+  .hawk-eye-card {
+    border-color: rgba(122,184,232,0.2);
+    background: linear-gradient(135deg, #16161f 0%, #111820 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hawk-eye-card::after {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(122,184,232,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hawk-eye-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .hawk-eye-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+    line-height: 1;
+    margin-top: 0.1rem;
+  }
+
+  .hawk-eye-tagline {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--accent2);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  .hawk-eye-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.8rem;
+  }
+
+  .hawk-feature {
+    background: rgba(0,0,0,0.25);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1rem;
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .hawk-feature-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .hawk-feature strong {
+    display: block;
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+    color: var(--text);
+  }
+
+  .hawk-feature p {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .hawk-video-wrap {
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #000;
+  }
+
+  .hawk-video-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    padding: 0.5rem 0.9rem;
+    background: rgba(0,0,0,0.4);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hawk-yt-thumb {
+    display: block;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    overflow: hidden;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .hawk-yt-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease, filter 0.4s ease;
+    filter: brightness(0.85);
+  }
+
+  .hawk-yt-thumb:hover .hawk-yt-img {
+    transform: scale(1.03);
+    filter: brightness(0.65);
+  }
+
+  .hawk-yt-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    transition: background 0.3s;
+  }
+
+  .hawk-yt-thumb:hover .hawk-yt-overlay {
+    background: rgba(0,0,0,0.25);
+  }
+
+  .hawk-yt-play {
+    filter: drop-shadow(0 4px 20px rgba(0,0,0,0.6));
+    transition: transform 0.25s;
+  }
+
+  .hawk-yt-thumb:hover .hawk-yt-play {
+    transform: scale(1.12);
+  }
+
+  .hawk-yt-cta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #fff;
+    background: rgba(0,0,0,0.55);
+    padding: 0.4rem 1rem;
+    border-radius: 2px;
+    border: 1px solid rgba(255,255,255,0.2);
+    backdrop-filter: blur(4px);
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.2rem; }
+    .nav-links { display: none; }
+    section { padding: 5rem 1.2rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .edu-card { grid-template-columns: 1fr; }
+    .hero-stats { gap: 2rem; flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">PKB</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#education">Education</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+
+  <div class="hero-eyebrow">Business Systems Analyst · Dallas, TX</div>
+  <h1>Prem Kumar<br><span>Bale</span></h1>
+  <p class="hero-subtitle">Bridging the gap between business needs and technical solutions — specializing in Salesforce, data analytics, and Agile-driven digital transformation.</p>
+  <div class="hero-cta">
+    <a href="#experience" class="btn btn-primary">View Experience</a>
+    <a href="#contact" class="btn btn-outline">Get In Touch</a>
+  </div>
+
+  <div class="hero-stats">
+    <div>
+      <span class="stat-num">5+</span>
+      <span class="stat-label">Years Experience</span>
+    </div>
+    <div>
+      <span class="stat-num">3</span>
+      <span class="stat-label">Certifications</span>
+    </div>
+    <div>
+      <span class="stat-num">500k+</span>
+      <span class="stat-label">Devices Monitored</span>
+    </div>
+    <div>
+      <span class="stat-num">15%</span>
+      <span class="stat-label">Reporting Speed Gain</span>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ABOUT -->
+<section id="about">
+  <span class="section-label">01 — About</span>
+  <h2 class="section-title">Where business<br>meets technology</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a Business Systems Analyst with a strong background in driving transformation by collaborating with stakeholders to gather requirements and translating them into scalable, robust solutions.</p>
+      <p>Experienced in managing the full software development lifecycle within Agile frameworks, I specialize in Salesforce configuration, SOQL-driven data integrity, and cross-functional team coordination across Dev, QA, UAT, and Production environments.</p>
+      <p>Currently based in Dallas, TX — working at MTX Group Inc as an Associate Consultant, delivering impactful Salesforce solutions for enterprise clients.</p>
+    </div>
+    <div>
+      <div style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;">Core Competencies</div>
+      <div class="competencies">
+        <span class="tag">Salesforce Configuration</span>
+        <span class="tag">SDLC Management</span>
+        <span class="tag">Salesforce Testing</span>
+        <span class="tag">Data Integrity</span>
+        <span class="tag">Cross-functional Collaboration</span>
+        <span class="tag">Data Governance</span>
+        <span class="tag">ETL Configuration</span>
+        <span class="tag">DevOps & Release Management</span>
+        <span class="tag">Agile / Scrum</span>
+        <span class="tag">Business Analysis</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <span class="section-label">02 — Experience</span>
+  <h2 class="section-title">Career journey</h2>
+
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="job-header">
+        <div>
+          <div class="job-title">Associate Consultant</div>
+          <div class="job-company">MTX Group Inc</div>
+        </div>
+        <div class="job-date">June 2024 – Present · Dallas, TX</div>
+      </div>
+      <ul class="job-bullets">
+        <li>Collaborate with clients and stakeholders to gather, analyze and document detailed business requirements, user stories and acceptance criteria for Salesforce solutions.</li>
+        <li>Develop process flows, mock-ups and user stories to translate business needs into actionable development tasks in an Agile environment.</li>
+        <li>Support UAT by creating test cases, tracking defects and ensuring business requirements were met.</li>
+        <li>Execute SOQL queries and data analysis to validate data integrity, support data migration and aid Salesforce data governance efforts.</li>
+        <li>Lead full Salesforce release lifecycle across Dev, QA, UAT and Production environments, coordinating multiple releases and teams.</li>
+        <li>Manage deployment pipelines using Gearset, Copado and Salesforce CLI ensuring minimal downtime and quick rollbacks.</li>
+        <li>Support as Proposal Coordinator by organizing requirements, gathering SME inputs and delivering high-quality bid submissions.</li>
+      </ul>
+      <div class="env-bar">Salesforce · Gearset · Copado · Snowflake · SOQL · Salesforce Inspector · Testim</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="job-header">
+        <div>
+          <div class="job-title">Data Analyst</div>
+          <div class="job-company">Sri Data Technologies</div>
+        </div>
+        <div class="job-date">Jan 2024 – May 2024 · Dallas, TX</div>
+      </div>
+      <ul class="job-bullets">
+        <li>Interpreted complex datasets using SQL and Python, unveiling trends and delivering actionable insights for informed business strategies.</li>
+        <li>Created visually compelling dashboards and data visualizations using Tableau to communicate insights effectively to stakeholders.</li>
+        <li>Optimized data collection processes, achieving a <strong style="color:var(--accent)">15% improvement in reporting speed</strong>.</li>
+      </ul>
+      <div class="env-bar">Tableau · SQL · Python</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="job-header">
+        <div>
+          <div class="job-title">Cloud Engineering Intern</div>
+          <div class="job-company">Overhead Door Corporation</div>
+        </div>
+        <div class="job-date">May 2023 – July 2023 · Dallas, TX</div>
+      </div>
+      <ul class="job-bullets">
+        <li>Designed and deployed robust cloud infrastructure using AWS services including Glue (ETL), RDS (databases), and S3 (storage).</li>
+        <li>Enabled enhanced visibility and monitoring on <strong style="color:var(--accent)">500k+ devices</strong>, facilitating operational status analysis and usage pattern tracking.</li>
+        <li>Developed dynamic operational performance dashboards in Amazon QuickSight using SQL to showcase real-time device metrics.</li>
+      </ul>
+      <div class="env-bar">AWS Glue · AWS RDS · AWS S3 · Athena · Amazon QuickSight · SQL</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="job-header">
+        <div>
+          <div class="job-title">Transportation Specialist I</div>
+          <div class="job-company">Amazon India Development Centre</div>
+        </div>
+        <div class="job-date">Nov 2021 – April 2022 · Hyderabad, India</div>
+      </div>
+      <ul class="job-bullets">
+        <li>Extracted and analyzed data using SQL and created reports to support business decisions and performance tracking.</li>
+        <li>Utilized Amazon QuickSight to create dynamic dashboards communicating KPIs and critical business metrics to stakeholders.</li>
+        <li>Managed project workflows and team collaboration efficiently using Jira.</li>
+      </ul>
+      <div class="env-bar">Jira · Amazon QuickSight · MS Excel · SQL</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="job-header">
+        <div>
+          <div class="job-title">Trade Compliance Executive</div>
+          <div class="job-company">Cargomen Logistics Pvt. Ltd</div>
+        </div>
+        <div class="job-date">Sept 2020 – July 2021 · Hyderabad, India</div>
+      </div>
+      <ul class="job-bullets">
+        <li>Ensured swift customs clearances for imports by IT companies, facilitating seamless cross-border operations.</li>
+        <li>Managed end-to-end Domestic Tariff Area (DTA) procurement of IT accessories from local vendors.</li>
+        <li>Oversaw reconciliation of customs duties using financial reporting and analytics to maintain accuracy in trade-related expenses.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SKILLS -->
+<section id="skills">
+  <span class="section-label">03 — Skills</span>
+  <h2 class="section-title">Technical toolkit</h2>
+
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-category">Project Management</div>
+      <div class="skill-list">Jira · Confluence · Agile / Scrum</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-category">CRM Platforms</div>
+      <div class="skill-list">Salesforce · Microsoft Dynamics</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-category">Programming Languages</div>
+      <div class="skill-list">SQL · SOQL · Python</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-category">DevOps & Release</div>
+      <div class="skill-list">Gearset · Copado · Bitbucket · Salesforce CLI</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-category">Data Visualization</div>
+      <div class="skill-list">Tableau · Amazon QuickSight</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-category">Data Management</div>
+      <div class="skill-list">AWS Glue · Snowflake · Salesforce Inspector · AWS S3 · Athena</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- EDUCATION -->
+<section id="education">
+  <span class="section-label">04 — Education</span>
+  <h2 class="section-title">Academic background</h2>
+
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div>
+        <div class="edu-degree">Master of Science — Business Analysis</div>
+        <div class="edu-school">University of North Texas, Denton, TX</div>
+        <div class="edu-courses">Foundations of Data Management · Data Warehousing · Data Mining · Business Process Analytics · Predictive Analysis & Modelling · Visualization with Tableau · Information Systems Design</div>
+      </div>
+      <div class="edu-gpa">CGPA<br>3.70</div>
+    </div>
+    <div class="edu-card">
+      <div>
+        <div class="edu-degree">Bachelor of Commerce — Foreign Trade</div>
+        <div class="edu-school">EThames Degree College, Osmania University, India</div>
+        <div class="edu-courses">Business Statistics · Cost Accounting · Managerial Accounting · Marketing & Advertising for Int'l Business · Cross-Cultural Consumer Behavior · Foreign Trade Financing · Export Marketing</div>
+      </div>
+      <div class="edu-gpa">CGPA<br>8.44</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CERTIFICATIONS -->
+<section>
+  <span class="section-label">05 — Certifications</span>
+  <h2 class="section-title">Credentials</h2>
+
+  <div class="certs-grid">
+    <div class="cert-card">
+      <div class="cert-icon">☁️</div>
+      <div class="cert-name">Salesforce Certified Administrator (SCA)</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">🤖</div>
+      <div class="cert-name">Salesforce Certified Agentforce Specialist</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">❄️</div>
+      <div class="cert-name">Snowflake SnowPro Core Certification</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">📋</div>
+      <div class="cert-name">Agile Project Management — Coursera Project Network</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">⚡</div>
+      <div class="cert-name">JIRA Scrum — Coursera Project Network</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PROJECTS -->
+<section id="projects">
+  <span class="section-label">06 — Projects</span>
+  <h2 class="section-title">Selected work</h2>
+
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-title">Enhanced Operational Analytics for Smart Door Systems</div>
+      <div class="project-date">May 2023 – July 2023</div>
+      <div class="project-desc">Aimed to enhance operational analytics for the company's garage doors focusing on improved performance visibility. Collaborated with a cross-functional team to configure and deploy AWS infrastructure and ETL pipelines. Utilizing AWS services like Glue, S3, Athena and QuickSight, created dynamic dashboards offering real-time performance metrics, significantly improving monitoring and analysis capabilities for both residential and commercial doors.</div>
+      <div style="margin-top:1rem;display:flex;flex-wrap:wrap;gap:0.5rem;">
+        <span class="tag">AWS Glue</span><span class="tag">AWS S3</span><span class="tag">Athena</span><span class="tag">Amazon QuickSight</span><span class="tag">ETL</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-title">Research Paper — Ride Hailing Optimization & Customer Preference Analysis</div>
+      <div class="project-date">Aug 2023 – Dec 2023</div>
+      <div class="project-desc">Identified critical pricing influencers for ride-hailing services with differentiation between Uber and Lyft's pricing structures. Analyzed the impact of external factors like weather conditions on customer ride preferences and dynamic pricing models.</div>
+      <div style="margin-top:1rem;display:flex;flex-wrap:wrap;gap:0.5rem;">
+        <span class="tag">Data Analysis</span><span class="tag">Pricing Models</span><span class="tag">Research</span>
+      </div>
+    </div>
+
+    <!-- HAWK EYE PROJECT -->
+    <div class="project-card hawk-eye-card">
+      <div class="hawk-eye-header">
+        <div class="hawk-eye-icon">🦅</div>
+        <div>
+          <div class="project-title" style="margin-bottom:0.2rem;">Hawk Eye — News Integrity Chrome Extension</div>
+          <div class="project-date">2025</div>
+        </div>
+      </div>
+
+      <p class="hawk-eye-tagline">Decode the Narrative. Trust the Numbers. Spot the Lean.</p>
+
+      <div class="hawk-eye-features">
+        <div class="hawk-feature">
+          <span class="hawk-feature-icon">⚖️</span>
+          <div>
+            <strong>Spot the Lean</strong>
+            <p>Instantly identify whether you're reading a Right, Left, or Center perspective — flagged the moment you land on a page.</p>
+          </div>
+        </div>
+        <div class="hawk-feature">
+          <span class="hawk-feature-icon">📊</span>
+          <div>
+            <strong>Trust the Numbers</strong>
+            <p>A proprietary Integrity Score quantifies source reliability before you click "Share" — so you share with confidence.</p>
+          </div>
+        </div>
+        <div class="hawk-feature">
+          <span class="hawk-feature-icon">🔇</span>
+          <div>
+            <strong>The Silence Detector</strong>
+            <p>If no other major outlet is reporting a story, Hawk Eye flags the isolation — stopping misinformation before it spreads.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIDEO DEMO -->
+      <div class="hawk-video-wrap">
+        <div class="hawk-video-label">Live Demo</div>
+        <a href="https://youtu.be/dGTqR49aUoE" target="_blank" class="hawk-yt-thumb" title="Watch Hawk Eye Demo on YouTube">
+          <img
+            src="https://img.youtube.com/vi/dGTqR49aUoE/maxresdefault.jpg"
+            onerror="this.src='https://img.youtube.com/vi/dGTqR49aUoE/hqdefault.jpg'"
+            alt="Hawk Eye Demo Preview"
+            class="hawk-yt-img"
+          />
+          <div class="hawk-yt-overlay">
+            <div class="hawk-yt-play">
+              <svg viewBox="0 0 68 48" width="68" height="48">
+                <path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#ff0000"/>
+                <path d="M45 24 27 14v20" fill="#fff"/>
+              </svg>
+            </div>
+            <div class="hawk-yt-cta">Watch on YouTube</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- DOWNLOAD -->
+      <div style="margin-top:1.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+        <a href="https://raw.githubusercontent.com/PremKumarBale/portfolio/main/hawk_eye_extension.zip" download="hawk_eye_extension.zip" class="btn btn-primary" style="display:inline-flex;align-items:center;gap:0.5rem;font-size:0.72rem;">
+          ⬇ Download Extension
+        </a>
+        <span style="font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--muted);">Unzip → Load in chrome://extensions (Developer Mode)</span>
+      </div>
+
+      <div style="margin-top:1.2rem;display:flex;flex-wrap:wrap;gap:0.5rem;">
+        <span class="tag">Chrome Extension</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">NewsAPI</span>
+        <span class="tag">Bias Detection</span>
+        <span class="tag">Fact Checking</span>
+        <span class="tag">Misinformation</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div>
+      <span class="section-label">07 — Contact</span>
+      <h2 class="section-title" style="margin-bottom:1rem;">Let's work<br>together</h2>
+      <p style="color:var(--muted);font-size:0.95rem;line-height:1.8;">Open to new opportunities, collaborations, or just a conversation about data, Salesforce, or cloud analytics.</p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:premkumarbale1@gmail.com" class="contact-link">
+        <span class="contact-link-icon">Email</span>
+        premkumarbale1@gmail.com
+      </a>
+      <a href="tel:9726549875" class="contact-link">
+        <span class="contact-link-icon">Phone</span>
+        (972) 654-9875
+      </a>
+      <a href="https://linkedin.com/in/prem-kumar-bale" target="_blank" class="contact-link">
+        <span class="contact-link-icon">LinkedIn</span>
+        linkedin.com/in/prem-kumar-bale
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  © 2026 Prem Kumar Bale — Designed & Developed for Web
+</footer>
+
+<script>
+  // Scroll-triggered animations
+  const items = document.querySelectorAll('.timeline-item');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  items.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
